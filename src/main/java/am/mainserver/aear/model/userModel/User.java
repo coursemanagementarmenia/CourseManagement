@@ -1,19 +1,21 @@
 package am.mainserver.aear.model.userModel;
 
 public class User {
-    enum Role{
-        ROLE_S,ROLE_T,ROLE_ADMIN;
+    enum Role {
+        ROLE_S, ROLE_T, ROLE_ADMIN;
     }
 
     private String login;
-    private String securCode;
-    /*
-    * in this constructor role input dose not initialized
-    * role shut be concrete of user type*/
+    private String secureCode;
 
-    public User(String login,String password,Role role){
+    /*
+    * in this constructor role input is not initialized
+    * role should be concrete of user type
+    */
+
+    public User(String login, String password, Role role) {
         this.login = login;
-        this.securCode = password;
+        this.secureCode = password;
 
     }
 }

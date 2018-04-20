@@ -1,7 +1,6 @@
-package am.mainserver.aear.dao.course;
+package am.mainserver.aear.dao;
 
-import am.mainserver.aear.dao.DbAdapter;
-import am.mainserver.aear.model.courseModel.Course;
+import am.mainserver.aear.domain.Course;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,20 +16,20 @@ public class CourseDao {
                 "(name, duration, description, price) VALUE (?, ?, ?, ?)");
 
         statement.setString(1, course.getName());
-        statement.setInt(2,course.getDuration());
-        statement.setString(3,course.getDescription());
-        statement.setDouble(4,course.getPrice());
+        statement.setInt(2, course.getDuration());
+        statement.setString(3, course.getDescription());
+        statement.setDouble(4, course.getPrice());
 
         statement.executeUpdate();
 
     }
 
 
-    public Course findByName(String name) throws SQLException{
+    public Course findByName(String name) throws SQLException {
 
         statement = DbAdapter.getInstance().getConnection().prepareStatement("SELECT * FROM courses WHERE name= ?");
 
-        statement.setString(1,name);
+        statement.setString(1, name);
 
         ResultSet resultSet = statement.executeQuery();
 
@@ -47,11 +46,11 @@ public class CourseDao {
         return course;
     }
 
-    public Long findCourseId(Course course) throws SQLException{
+    public Long findCourseId(Course course) throws SQLException {
 
         statement = DbAdapter.getInstance().getConnection().prepareStatement("SELECT id FROM courses WHERE name = ?");
 
-        statement.setString(1,course.getName());
+        statement.setString(1, course.getName());
 
         ResultSet resultSet = statement.executeQuery();
 
@@ -60,11 +59,11 @@ public class CourseDao {
         return resultSet.getLong(1);
     }
 
-    public Course findById(Long id) throws SQLException{
+    public Course findById(Long id) throws SQLException {
 
         statement = DbAdapter.getInstance().getConnection().prepareStatement("SELECT * FROM courses WHERE id = ?");
 
-        statement.setLong(1,id);
+        statement.setLong(1, id);
 
         ResultSet resultSet = statement.executeQuery();
 
@@ -80,4 +79,24 @@ public class CourseDao {
 
         return course;
     }
+
+    public void changeDescription(String description, Course course) throws SQLException {
+
+        if (description == null || course == null) {
+            throw new IllegalArgumentException();
+        }
+
+        Long a = findCourseId(course);
+
+        statement = DbAdapter.getInstance().getConnection().prepareStatement
+                (" UPDATE courses SET description = ? WHERE id = ?");
+
+        statement.setString(1, description);
+        statement.setLong(2, a);
+
+        statement.executeUpdate();
+
+
+    }
+
 }

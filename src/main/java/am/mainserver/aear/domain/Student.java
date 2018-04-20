@@ -1,9 +1,5 @@
-package am.mainserver.aear.model.studentModel;
+package am.mainserver.aear.domain;
 
-import am.mainserver.aear.model.courseModel.Course;
-import am.mainserver.aear.model.general.StudentCoursesScores;
-
-import java.util.List;
 import java.util.Map;
 
 public class Student {
@@ -72,5 +68,18 @@ public class Student {
 
     public void setCourseAndScoresList(Map<String, Double> courseAndScoresList) {
         this.courseAndScoresList = courseAndScoresList;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", age=" + age +
+                ", email='" + email + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", courseAndScoresList=" + courseAndScoresList +
+                '}';
     }
 }

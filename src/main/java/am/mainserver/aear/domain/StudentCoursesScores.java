@@ -1,6 +1,4 @@
-package am.mainserver.aear.model.general;
-
-import java.util.Map;
+package am.mainserver.aear.domain;
 
 public class StudentCoursesScores {
 

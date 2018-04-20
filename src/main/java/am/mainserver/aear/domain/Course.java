@@ -1,7 +1,5 @@
-package am.mainserver.aear.model.courseModel;
+package am.mainserver.aear.domain;
 
-
-import java.text.SimpleDateFormat;
 
 public class Course {
 
@@ -53,4 +51,5 @@ public class Course {
     public void setPrice(Double price) {
         this.price = price;
     }
+
 }

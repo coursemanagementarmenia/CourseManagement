@@ -1,9 +1,7 @@
-package am.mainserver.aear.dao.general;
+package am.mainserver.aear.dao;
 
-import am.mainserver.aear.dao.DbAdapter;
-import am.mainserver.aear.dao.course.CourseDao;
-import am.mainserver.aear.model.courseModel.Course;
-import am.mainserver.aear.model.studentModel.Student;
+import am.mainserver.aear.domain.Course;
+import am.mainserver.aear.domain.Student;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,7 +24,7 @@ public class StudentCoursesScoresDao {
         preparedStatement.executeUpdate();
     }
 
-    public void addSccre(Student student, Course course, Double score) throws SQLException {
+    public void addScore(Student student, Course course, Double score) throws SQLException {
 
         preparedStatement = DbAdapter.getInstance().getConnection().prepareStatement
                 ("UPDATE student_courses_scores SET score = ? WHERE student_id = ? AND  course_id  = ?");

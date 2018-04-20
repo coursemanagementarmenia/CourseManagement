@@ -1,7 +1,7 @@
 package am.minserver.aear.dao.student;
 
-import am.mainserver.aear.dao.student.StudentDao;
-import am.mainserver.aear.model.studentModel.Student;
+import am.mainserver.aear.dao.StudentDao;
+import am.mainserver.aear.domain.Student;
 import org.junit.*;
 
 import java.sql.SQLException;

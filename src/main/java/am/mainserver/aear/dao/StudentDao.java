@@ -1,22 +1,20 @@
-package am.mainserver.aear.dao.student;
+package am.mainserver.aear.dao;
 
-import am.mainserver.aear.dao.DbAdapter;
-import am.mainserver.aear.model.general.StudentCoursesScores;
-import am.mainserver.aear.model.studentModel.Student;
+import am.mainserver.aear.domain.Student;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+
 
 public class StudentDao {
 
     private PreparedStatement statement = null;
 
     public void saveStudent(Student student) throws SQLException {
-
+         //TODO validation does current student exists in db already or not?
         statement = DbAdapter.getInstance().getConnection().prepareStatement("INSERT INTO students " +
                 "(firstName, lastName, age, email, phoneNumber)" +
                 " VALUE (?, ?, ?, ?, ?) ");
@@ -64,6 +62,14 @@ public class StudentDao {
 
         Student student = null;
 
+        extractAllStudents(result, list);
+
+        return list;
+    }
+
+    /*This method was created to avoid repetitive code*/
+    private void extractAllStudents(ResultSet result, List<Student> list) throws SQLException {
+        Student student;
         while (result.next()){
 
             student = new Student();
@@ -75,8 +81,6 @@ public class StudentDao {
             student.setPhoneNumber(result.getString(6));
             list.add(student);
         }
-
-        return list;
     }
 
     public List<Student> findByFullName(String firstName, String lastName) throws SQLException{
@@ -97,33 +101,24 @@ public class StudentDao {
 
         Student student = null;
 
-        while (result.next()){
-
-            student = new Student();
-            student.setId(result.getLong("id"));
-            student.setFirstName(result.getString(2));
-            student.setLastName(result.getString(3));
-            student.setAge(result.getInt(4));
-            student.setEmail(result.getString(5));
-            student.setPhoneNumber(result.getString(6));
-            list.add(student);
-        }
+        extractAllStudents(result, list);
 
         return list;
     }
 
     public Long findStudentId(String emil) throws SQLException {
 
-        statement = DbAdapter.getInstance().getConnection().prepareStatement("SELECT id FROM students " +
-                "WHERE email = ?");
-
-        statement.setString(1,emil);
-
-        ResultSet result = statement.executeQuery();
-
-        result.next();
-
-        return result.getLong(1);
+//        statement = DbAdapter.getInstance().getConnection().prepareStatement("SELECT id FROM students " +
+//                "WHERE email = ?");
+//
+//        statement.setString(1,emil);
+//
+//        ResultSet result = statement.executeQuery();
+//
+//        result.next();
+//
+//        return result.getLong(1);
+        return findByLogin(emil).getId();
     }
 
     public void removeStudent(String email) throws SQLException {
@@ -135,7 +130,4 @@ public class StudentDao {
 
         statement.executeUpdate();
     }
-
-
-
 }

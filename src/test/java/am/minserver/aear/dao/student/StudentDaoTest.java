@@ -39,12 +39,6 @@ public class StudentDaoTest {
 
         Student student = null;
 
-        try {
-            student = new StudentDao().findByLogin("Gag@mil.ru");
-        } catch (SQLException e) {
-            fail("Any SQL Exeption in findByLoginTest method");
-        }
-
         assertEquals(student.getFirstName(), Gago.getFirstName());
     }
 

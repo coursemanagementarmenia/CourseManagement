@@ -1,7 +1,5 @@
 package am.mainserver.aear.domain;
 
-import java.util.Map;
-
 public class Student {
     private Long id;
     private String firstName;
@@ -9,7 +7,6 @@ public class Student {
     private Integer age;
     private String email;
     private String phoneNumber;
-    private Map<String,Double> courseAndScoresList;
 
     public Student() {
     }
@@ -62,14 +59,6 @@ public class Student {
         this.phoneNumber = phoneNumber;
     }
 
-    public Map<String, Double> getCourseAndScoresList() {
-        return courseAndScoresList;
-    }
-
-    public void setCourseAndScoresList(Map<String, Double> courseAndScoresList) {
-        this.courseAndScoresList = courseAndScoresList;
-    }
-
     @Override
     public String toString() {
         return "Student{" +
@@ -79,7 +68,6 @@ public class Student {
                 ", age=" + age +
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
-                ", courseAndScoresList=" + courseAndScoresList +
                 '}';
     }
 }

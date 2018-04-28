@@ -1,6 +1,6 @@
 package am.minserver.aear.dao.student;
 
-import am.mainserver.aear.dao.StudentDao;
+import am.mainserver.aear.dao.StudentDAO;
 import am.mainserver.aear.domain.Student;
 import org.junit.*;
 
@@ -28,7 +28,7 @@ public class StudentDaoTest {
     public void saveStudentTest () {
 
         try {
-            new StudentDao().saveStudent(Gago);
+            new StudentDAO().saveStudent(Gago);
         } catch (SQLException e) {
             fail("Any SQL Exeption in saveStudent method");
         }
@@ -47,7 +47,7 @@ public class StudentDaoTest {
     public void removeStudentTest (){
 
         try {
-            new StudentDao().removeStudent("Gag@mil.ru");
+            new StudentDAO().removeStudent("Gag@mil.ru");
         } catch (SQLException e) {
             fail("Any SQL Exeption in remove method");
         }

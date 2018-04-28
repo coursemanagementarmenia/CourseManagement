@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class StudentDao {
+public class StudentDAO {
 
     private PreparedStatement statement = null;
 

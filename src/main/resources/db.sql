@@ -10,14 +10,14 @@ create table Student (
 
 create table Course (
   id int not null auto_increment primary key,
-  name varchar(30),
+  name varchar(30) unique not null,
   duration int,
   description text,
   price double
 )
   ENGINE = InnoDB;
 
-create table StudentCourse(
+create table StudentCourses (
   id int not null auto_increment primary key,
   studentID int not null,
   courseID int not null,

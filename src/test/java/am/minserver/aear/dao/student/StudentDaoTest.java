@@ -23,6 +23,7 @@ public class StudentDaoTest {
         Gago.setEmail("Gag@mil.ru");
     }
 
+    /*
     @Before
     @Test
     public void saveStudentTest () {
@@ -53,5 +54,5 @@ public class StudentDaoTest {
         }
     }
 
-
+*/
 }

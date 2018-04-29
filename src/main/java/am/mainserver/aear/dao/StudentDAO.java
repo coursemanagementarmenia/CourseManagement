@@ -10,101 +10,121 @@ import java.util.List;
 
 
 public class StudentDAO {
-
     private PreparedStatement statement = null;
 
-    public void saveStudent(Student student) throws SQLException {
-        //TODO validation does current student exists in db already or not?
-        //if(findByLogin())
-        statement = DbAdapter.getInstance().getConnection().prepareStatement(
-                "INSERT INTO students " +
+    public void addStudent(Student student) throws SQLException {
+        if (getStudent(student.getEmail()) != null) {
+            System.out.println("Student with that email already exists");
+            return;
+        }
+        statement = DBAdapter.getInstance().getConnection().prepareStatement(
+                "INSERT INTO Student" +
                         "(firstName, lastName, age, email, phoneNumber)" +
-                        " VALUE (?, ?, ?, ?, ?) "
+                        " VALUES (?, ?, ?, ?, ?) "
         );
-
         statement.setString(1, student.getFirstName());
         statement.setString(2, student.getLastName());
         statement.setInt(3, student.getAge());
         statement.setString(4, student.getEmail());
         statement.setString(5, student.getPhoneNumber());
-
         statement.executeUpdate();
+    }
+
+    public Student getStudent(long studentID) throws SQLException {
+        statement = DBAdapter.getInstance().getConnection().prepareStatement(
+                "SELECT * FROM Student " +
+                        "WHERE id = ?"
+        );
+        statement.setLong(1, studentID);
+        ResultSet resultSet = statement.executeQuery();
+        resultSet.next();
+        if (resultSet.getRow() == 0) {
+            return null;
+        }
+        Student student = new Student();
+        student.setId(resultSet.getLong("id"));
+        student.setFirstName(resultSet.getString("firstName"));
+        student.setLastName(resultSet.getString("lastName"));
+        student.setEmail(resultSet.getString("email"));
+        student.setAge(resultSet.getInt("age"));
+        student.setPhoneNumber(resultSet.getString("phoneNumber"));
+        return student;
+    }
+
+    public Student getStudent(String email) throws SQLException {
+        statement = DBAdapter.getInstance().getConnection().prepareStatement(
+                "SELECT * FROM Student " +
+                        "WHERE email = ?"
+        );
+        statement.setString(1, email);
+        ResultSet resultSet = statement.executeQuery();
+        resultSet.next();
+        if (resultSet.getRow() == 0) {
+            return null;
+        }
+        Student student = new Student();
+        student.setId(resultSet.getLong("id"));
+        student.setFirstName(resultSet.getString("firstName"));
+        student.setLastName(resultSet.getString("lastName"));
+        student.setEmail(resultSet.getString("email"));
+        student.setAge(resultSet.getInt("age"));
+        student.setPhoneNumber(resultSet.getString("phoneNumber"));
+        return student;
+    }
+
+    public List<Student> getAllStudents() throws SQLException {
+        statement = DBAdapter.getInstance().getConnection().prepareStatement(
+                "SELECT * FROM Student"
+        );
+        ResultSet result = statement.executeQuery();
+        List<Student> list = new ArrayList<Student>();
+        extractAllStudents(result, list);
+        return list;
     }
 
     /*This method was created to avoid repetitive code*/
     private void extractAllStudents(ResultSet result, List<Student> list) throws SQLException {
-        Student student;
+        Student student = new Student();
         while (result.next()) {
-
-            student = new Student();
             student.setId(result.getLong("id"));
-            student.setFirstName(result.getString(2));
-            student.setLastName(result.getString(3));
-            student.setAge(result.getInt(4));
-            student.setEmail(result.getString(5));
-            student.setPhoneNumber(result.getString(6));
+            student.setFirstName(result.getString("firstName"));
+            student.setLastName(result.getString("lastName"));
+            student.setEmail(result.getString("email"));
+            student.setAge(result.getInt("age"));
+            student.setPhoneNumber(result.getString("phoneNumber"));
             list.add(student);
         }
     }
 
-    public List<Student> findAll() throws SQLException {
-        statement = DbAdapter.getInstance().getConnection().prepareStatement("SELECT * FROM students");
-        ResultSet result = statement.executeQuery();
-        List<Student> list = new ArrayList<Student>();
-        Student student = null;
-        extractAllStudents(result, list);
-        return list;
-    }
-
-    // im jogelov karelia findStudent mi hat method unenal u overload anel, ay senc...
-
-    public Student findStudent(Student student) throws SQLException {
-        // todo: use all available "find" algorithms, to find a student, while having minimal information about him (email, f/l name, etc...)
-        return new Student();
-    }
-
-    public Student findStudent(String email) throws SQLException {
-        statement = DbAdapter.getInstance().getConnection().prepareStatement(
-                "SELECT * FROM students WHERE email = ?"
-        );
-        statement.setString(1, email);
-
-        ResultSet result = statement.executeQuery();
-        result.next();
-
-        Student student = new Student();
-        student.setId(result.getLong("id"));
-        student.setFirstName(result.getString(2));
-        student.setLastName(result.getString(3));
-        student.setAge(result.getInt(4));
-        student.setEmail(result.getString(5));
-        student.setPhoneNumber(result.getString(6));
-
-        return student;
-    }
-
-    public List<Student> findStudents(String firstName, String lastName) throws SQLException, IllegalArgumentException {
-        if (firstName == null || lastName == null) {
+    public List<Student> getStudents(String firstName, String lastName) throws SQLException {
+        if (firstName == null || firstName.length() == 0 || lastName == null || lastName.length() == 0) {
             throw new IllegalArgumentException();
         }
-        statement = DbAdapter.getInstance().getConnection().prepareStatement(
-                "SELECT * FROM students WHERE firstName = ? AND lastName = ?"
+        statement = DBAdapter.getInstance().getConnection().prepareStatement(
+                "SELECT * FROM Student " +
+                        "WHERE firstName = ? AND lastName = ?"
         );
         statement.setString(1, firstName);
         statement.setString(2, lastName);
-
         ResultSet result = statement.executeQuery();
         List<Student> list = new ArrayList<Student>();
-        Student student = null;
         extractAllStudents(result, list);
-
         return list;
     }
 
-    public void removeStudent(String email) throws SQLException {
+    public void removeStudent(long studentID) throws SQLException {
+        statement = DBAdapter.getInstance().getConnection().prepareStatement(
+                "DELETE FROM Student " +
+                        "WHERE id = ?"
+        );
+        statement.setLong(1, studentID);
+        statement.executeUpdate();
+    }
 
-        statement = DbAdapter.getInstance().getConnection().prepareStatement(
-                "DELETE FROM students WHERE email = ?"
+    public void removeStudent(String email) throws SQLException {
+        statement = DBAdapter.getInstance().getConnection().prepareStatement(
+                "DELETE FROM Student " +
+                        "WHERE email = ?"
         );
         statement.setString(1, email);
         statement.executeUpdate();

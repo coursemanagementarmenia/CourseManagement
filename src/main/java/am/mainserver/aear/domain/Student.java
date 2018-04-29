@@ -1,10 +1,10 @@
 package am.mainserver.aear.domain;
 
 public class Student {
-    private Long id;
+    private long id;
     private String firstName;
     private String lastName;
-    private Integer age;
+    private int age;
     private String email;
     private String phoneNumber;
 

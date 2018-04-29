@@ -3,13 +3,14 @@ package am.mainserver.aear.domain;
 
 public class Course {
 
-    private Long id;
+    private long id;
     private String name;
-    private Integer duration;
+    private int duration;
     private String description;
-    private Double price;
+    private double price;
 
     public Course() {
+
     }
 
     public Long getId() {

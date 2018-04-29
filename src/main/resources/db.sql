@@ -1,4 +1,4 @@
-create table students (
+create table Student (
   id int not null auto_increment primary key,
   firstName varchar(30) not null ,
   lastName varchar(30) not null ,
@@ -8,21 +8,21 @@ create table students (
 )
   ENGINE = InnoDB;
 
-create table courses (
+create table Course (
   id int not null auto_increment primary key,
-  name varchar(30),
+  name varchar(30) unique not null,
   duration int,
   description text,
   price double
 )
   ENGINE = InnoDB;
 
-create table student_courses_scores (
-  id int auto_increment not null primary key,
-  score double not null,
-  student_id int not null,
-  course_id int not null,
-  FOREIGN KEY (student_id) REFERENCES students (id),
-  FOREIGN KEY (course_id) REFERENCES courses (id)
+create table StudentCourses (
+  id int not null auto_increment primary key,
+  studentID int not null,
+  courseID int not null,
+  mark double default 0,
+  foreign key (studentID) references Student(id),
+  foreign key (courseID) references Course(id)
 )
-  engine = InnoDB;
+ENGINE = InnoDB;

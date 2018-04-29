@@ -1,12 +1,12 @@
 package am.minserver.aear.dao.course;
 
-import am.mainserver.aear.dao.CourseDao;
+import am.mainserver.aear.dao.CourseDAO;
 import am.mainserver.aear.domain.Course;
 import org.junit.Test;
 
 import java.sql.SQLException;
 
-public class CourseDaoTest {
+public class CourseDAOTest {
     static Course javaCourse = new Course();
 
 
@@ -18,21 +18,22 @@ public class CourseDaoTest {
         javaCourse.setName("JAVA");
 
         try {
-            new CourseDao().addCourse(javaCourse);
+            new CourseDAO().addCourse(javaCourse);
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
 
-
+    /*
     @Test
     public void changeDescriptionTest(){
 
         try {
-            new CourseDao().changeDescription("It is an JAVA Course",javaCourse);
+            new CourseDAO().changeDescription("It is an JAVA Course",javaCourse);
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+    */
 }

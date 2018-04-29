@@ -5,9 +5,9 @@ public class User {
         ROLE_STUDENT, ROLE_TUTOR, ROLE_ADMIN;
     }
 
-    private Long id;
-    private Long student_id;
-    private Long tutor_id;
+    private long id;
+    private long student_id;
+    private long tutor_id;
     private String login;
     private String secureCode;
     private Role role;

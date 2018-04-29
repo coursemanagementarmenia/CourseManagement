@@ -1,7 +1,7 @@
 package am.mainserver.aear.domain;
 
 public class Tutor {
-    private Long id;
+    private long id;
     private String firstName;
     private String lastname;
     private String titel;
